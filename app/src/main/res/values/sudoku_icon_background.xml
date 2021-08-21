@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="sudoku_icon_background">#2669B3</color>
+    <color name="sudoku_icon_background">#FFFFFF</color>
 </resources>
