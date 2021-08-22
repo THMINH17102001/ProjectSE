@@ -70,8 +70,8 @@
         android:background="@drawable/edit_text_bg"
         android:hint="Confirm Password"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,17 +80,44 @@
         android:layout_marginTop="20dp"
         app:layout_constraintWidth_percent="0.8" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signUpbtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent=".6"
-        app:layout_constraintVertical_bias=".75"
-        android:text="Sign up"
         android:background="@drawable/button_bg"
+        android:text="Sign up"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintWidth_percent=".6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have an account ?"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/signInbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpbtn"
+        app:layout_constraintVertical_bias="1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signInbtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg2"
+        android:text="Sign In"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpbtn"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintWidth_percent=".6" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

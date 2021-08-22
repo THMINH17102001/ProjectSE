@@ -64,16 +64,43 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintWidth_percent="0.8" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent=".6"
-        app:layout_constraintVertical_bias=".65"
-        android:text="Sign in"
         android:background="@drawable/button_bg"
+        android:text="Sign in"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".65"
+        app:layout_constraintWidth_percent=".6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You don't have account ?"
+        android:textSize="15dp"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg2"
+        android:text="Sign up now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintWidth_percent=".6" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
