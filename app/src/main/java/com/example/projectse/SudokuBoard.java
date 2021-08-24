@@ -194,5 +194,6 @@ public class SudokuBoard extends View{
     {
         return this.solver;
     }
+
 }
 

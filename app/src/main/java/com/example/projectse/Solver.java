@@ -146,8 +146,45 @@ public class Solver {
             }
             i += new Random().nextInt(2);
         }
+        if(solve1(display)==false)
+        {
+            resetBoard();
+            createGameBoard(display);
+        }
     }
 
+    public boolean solve1(SudokuBoard display)
+    {
+        int row=-1;
+        int col=-1;
+
+        for(int r=0;r<9;r++)
+            for(int c=0;c<9;c++)
+            {
+                if(this.board[r][c]==0)
+                {
+                    row=r;
+                    col=c;
+                    break;
+                }
+            }
+        if(row ==-1 || col == -1)
+            return true;
+
+        for(int i =1;i<10;i++){
+            this.board[row][col] =i;
+            display.invalidate();
+
+            if(check(row,col)){
+                if(solve1(display)){
+                    this.board[row][col] =0;
+                    return true;
+                }
+            }
+            this.board[row][col]=0;
+        }
+        return false;
+    }
     public int[][] getBoard()
     {
         return this.board;

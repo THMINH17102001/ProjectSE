@@ -91,21 +91,9 @@ public class SingleMode extends AppCompatActivity {
     }
     public void GameStart(View view)
     {
-        if(startBTN.getText().toString().equals(getString(R.string.start)))
-        {
-            startBTN.setText(getString(R.string.clear));
-            ///CreateGameThread createGameThread = new CreateGameThread();
-            /// new Thread(createGameThread).start();
-            gameBoardSolver.createGameBoard(gameBoard);
-            gameBoard.invalidate();
-
-        }
-        else
-        {
-            startBTN.setText(getString(R.string.start));
-            gameBoardSolver.resetBoard();
-            gameBoard.invalidate();
-        }
+        gameBoardSolver.resetBoard();
+        gameBoardSolver.createGameBoard(gameBoard);
+        gameBoard.invalidate();
     }
     class SolveBoardThread implements  Runnable{
         @Override
