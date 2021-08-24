@@ -59,7 +59,7 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/avt2"/>
                     <ImageButton
-                        android:id="@+id/ib_avt1"
+                        android:id="@+id/ib_avt3"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/round_buttonunpick"
@@ -123,8 +123,10 @@
                     android:textAllCaps="false"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/layoutbutton1"/>
+                    android:background="@drawable/layoutbutton1"
+                    android:id="@id/bt_change"/>
                 <Button
+                    android:id="@id/bt_cancel"
                     android:layout_marginLeft="20dp"
                     android:layout_width="140dp"
                     android:layout_height="60dp"
