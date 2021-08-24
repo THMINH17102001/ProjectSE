@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectSE">
         <activity
+            android:name=".ChangeDisplayName"
+            android:exported="true" />
+        <activity
             android:name=".WaitingRoom2"
             android:exported="true" />
         <activity
