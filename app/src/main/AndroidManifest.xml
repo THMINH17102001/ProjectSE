@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectSE">
         <activity
+            android:name=".SingleMode"
+            android:exported="true" />
+        <activity
             android:name=".ChangeAvatar"
             android:exported="true" />
         <activity
