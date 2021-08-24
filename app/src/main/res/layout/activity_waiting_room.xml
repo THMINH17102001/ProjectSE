@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Create Room" />
+        android:text="CREATE ROOM" />
 
     <Button
 
@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
 
-        android:text="Back" />
+        android:text="BACK" />
 
 </RelativeLayout>
