@@ -4384,6 +4384,12 @@ public class SingleMode extends Activity implements View.OnClickListener {
             }
         }
         point=point+nRemove-81;
-        Toast.makeText(SingleMode.this, Integer.toString(dataBoard[selX][selY])+Integer.toString(point), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SingleMode.this, Integer.toString(dataBoard[selX][selY])+Integer.toString(point), Toast.LENGTH_SHORT).show();
+        if(point==nRemove){
+            //do something
+            showAllBoard();
+            Toast.makeText(SingleMode.this, "You win!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }
