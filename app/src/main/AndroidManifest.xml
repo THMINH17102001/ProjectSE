@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectSE">
         <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnsignedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SigninActivity"
+            android:exported="true" />
+        <activity
             android:name=".SingleMode"
             android:exported="true" />
         <activity
@@ -23,9 +32,6 @@
             android:exported="true" />
         <activity
             android:name=".WaitingRoom"
-            android:exported="true" />
-        <activity
-            android:name=".LoginActivity"
             android:exported="true" />
     </application>
 

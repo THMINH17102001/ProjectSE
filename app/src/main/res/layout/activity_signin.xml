@@ -26,7 +26,7 @@
         android:text="SUDOKU"
         android:textColor="#311B92"
         android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/newUsername"
+        app:layout_constraintBottom_toTopOf="@+id/username_SigninActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,10 +35,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
+        android:text="Sign In"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/newUsername"
+        app:layout_constraintBottom_toTopOf="@+id/username_SigninActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -46,7 +46,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newUsername"
+        android:id="@+id/username_SigninActivity"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,20 +54,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="New Username"
+            android:hint="username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:background="@drawable/edit_text_bg"
+            android:layout_height="wrap_content">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newPass"
+        android:id="@+id/password_SigninActivity"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,47 +74,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newUsername"
+        app:layout_constraintTop_toBottomOf="@+id/username_SigninActivity"
         app:layout_constraintVertical_bias="0.0"
         app:passwordToggleEnabled="true"
         >
+
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        >
-
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passcf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPass"
-        app:layout_constraintVertical_bias="0"
-        app:passwordToggleEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="20dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="ConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:background="@drawable/edit_text_bg"
+            android:hint="Password">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signUp"
+        android:id="@+id/signin_SigninActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
-        android:text="Sign up"
+        android:text="Sign in"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,24 +105,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have an account ?"
+        android:text="You don't have an account ?"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/signIn"
+        app:layout_constraintBottom_toTopOf="@+id/signup_SigninActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        app:layout_constraintTop_toBottomOf="@+id/signin_SigninActivity"
         app:layout_constraintVertical_bias="1" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signIn"
+        android:id="@+id/signup_SigninActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg2"
-        android:text="Sign In"
+        android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        app:layout_constraintTop_toBottomOf="@+id/signin_SigninActivity"
         app:layout_constraintVertical_bias="0.8"
         app:layout_constraintWidth_percent=".8" />
 
