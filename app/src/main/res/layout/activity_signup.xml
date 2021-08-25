@@ -92,7 +92,6 @@
         android:id="@+id/passcf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginTop="20dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="ConfirmPassword"
+            android:hint="Confirm Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -111,7 +110,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signUp"
+        android:id="@+id/signup_SignupActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
@@ -129,14 +128,14 @@
         android:layout_height="wrap_content"
         android:text="You have an account ?"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/signIn"
+        app:layout_constraintBottom_toTopOf="@+id/signin_SignupActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        app:layout_constraintTop_toBottomOf="@+id/signup_SignupActivity"
         app:layout_constraintVertical_bias="1" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signIn"
+        android:id="@+id/signin_SignupActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg2"
@@ -144,7 +143,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        app:layout_constraintTop_toBottomOf="@+id/signup_SignupActivity"
         app:layout_constraintVertical_bias="0.8"
         app:layout_constraintWidth_percent=".8" />
 

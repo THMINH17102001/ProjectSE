@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".UnsignedActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -69,33 +69,34 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/multiTextView_UnsignedActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="you want to play in multiple player mode ?"
+        android:text="You want to play in multiple player mode ?"
         android:textAlignment="center"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias=".8"
+        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/singlemode_UnsignedActivity"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/singlemode_UnsignedActivity" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signin_UnsignedActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
         android:background="@drawable/button_bg2"
         android:text="Sign in"
+        app:layout_constraintVertical_bias=".1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/multiTextView_UnsignedActivity"
         app:layout_constraintWidth_percent=".8" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/quit_UnsignedActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

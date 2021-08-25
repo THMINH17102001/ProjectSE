@@ -59,7 +59,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:hint="username"
             android:layout_width="match_parent"
-            android:background="@drawable/edit_text_bg"
             android:layout_height="wrap_content">
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -82,7 +81,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_bg"
             android:hint="Password">
 
         </com.google.android.material.textfield.TextInputEditText>
