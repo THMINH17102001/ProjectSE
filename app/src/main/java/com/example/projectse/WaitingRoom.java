@@ -87,7 +87,7 @@ public class WaitingRoom extends AppCompatActivity {
                 //join the room
                 button.setText("CREATE ROOM");
                 button.setEnabled(true);
-                Intent intent=new Intent(getApplicationContext(),WaitingRoom.class); //fix this to Waiting room 2
+                Intent intent=new Intent(getApplicationContext(),WaitingRoom2.class); //fix this to Waiting room 2
                 intent.putExtra("roomName",roomName);
 
             }
