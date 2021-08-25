@@ -11,9 +11,10 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,11 +27,11 @@
         android:text="SUDOKU"
         android:textColor="#311B92"
         android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/newUsername"
+        app:layout_constraintBottom_toTopOf="@+id/newUsernameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
         android:text="Sign Up"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/newUsername"
+        app:layout_constraintBottom_toTopOf="@+id/newUsernameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -46,7 +47,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newUsername"
+        android:id="@+id/newUsernameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
         app:layout_constraintVertical_bias="0.38">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newUsernameEditText"
             android:hint="New Username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +69,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newPass"
+        android:id="@+id/newPasswordLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,11 +77,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newUsername"
+        app:layout_constraintTop_toBottomOf="@+id/newUsernameLayout"
         app:layout_constraintVertical_bias="0.0"
         app:passwordToggleEnabled="true"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newPasswordEditText"
             android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,18 +92,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passcf"
+        android:id="@+id/newPasswordConfirmLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPass"
+        app:layout_constraintTop_toBottomOf="@+id/newPasswordLayout"
         app:layout_constraintVertical_bias="0"
         app:passwordToggleEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginTop="20dp">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newConfirmPasswordEditText"
             android:hint="Confirm Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
