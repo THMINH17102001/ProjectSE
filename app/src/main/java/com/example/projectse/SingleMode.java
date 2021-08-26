@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class SingleMode extends Activity implements View.OnClickListener {
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     Random rand = new Random();
     Button c00, c01, c02, c03, c04, c05, c06, c07, c08,
             c10, c11, c12, c13, c14, c15, c16, c17, c18,
@@ -28,14 +33,14 @@ public class SingleMode extends Activity implements View.OnClickListener {
             c80, c81, c82, c83, c84, c85, c86, c87, c88;
     Button bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9;
     Button bt_help, bt_hint, bt_note, bt_pause, bt_clear;
-    TextView tv_fault;
+    TextView tv_fault, tv_diff;
     Chronometer ch_timing;
+    String dif;
     long timePause;
     int dataBoard[][];
     int showBoard[][];
     int noteBoard[][];
     public int fault, hint, selX, selY, noteOn, maxFault;
-    int nResult;
     int point;
     int nRemove;
 
@@ -43,11 +48,9 @@ public class SingleMode extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_mode);
-        nResult = 0;
+        initValue();
         initView();
-        point = 0;
-        nRemove = 60;
-        timePause=0;
+        displayView();
         Sudoku sdk = new Sudoku(nRemove);
         showBoard = sdk.getShwBoard();
         dataBoard = sdk.getSolBoard();
@@ -55,12 +58,15 @@ public class SingleMode extends Activity implements View.OnClickListener {
         startTimming();
         setListen();
     }
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
         startTimming();
     }
-
     @Override
     protected void onStop() {
         pauseTimming();
@@ -164,9 +170,10 @@ public class SingleMode extends Activity implements View.OnClickListener {
         c88.setOnClickListener(this);
 
     }
-
-    private void initView() {
-        initCellView();
+    private void initValue() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+        dif=sharedPreferences.getString("Difficulty", "Test");
         dataBoard = new int[9][9];
         showBoard = new int[9][9];
         noteBoard = new int[9][9];
@@ -176,7 +183,21 @@ public class SingleMode extends Activity implements View.OnClickListener {
         selX = 0;
         selY = 0;
         maxFault=3;
+        point = 0;
+        nRemove = getDiff(dif);
+        timePause=0;
         rand = new Random();
+    }
+
+    private int getDiff(String dif) {
+        if(dif.equals("Easy")) return 55;
+        if(dif.equals("Medium")) return 65;
+        if(dif.equals("Hard")) return 75;
+        return 5;
+    }
+
+    private void initView() {
+        initCellView();
         bt_1 = (Button) findViewById(R.id.bt_1);
         bt_2 = (Button) findViewById(R.id.bt_2);
         bt_3 = (Button) findViewById(R.id.bt_3);
@@ -191,8 +212,12 @@ public class SingleMode extends Activity implements View.OnClickListener {
         bt_clear = (Button) findViewById(R.id.ib_clear);
         bt_hint = (Button) findViewById(R.id.ib_hint);
         tv_fault = (TextView) findViewById(R.id.tv_fault);
-        tv_fault.setText(Integer.toString(fault) + "/"+ Integer.toString(maxFault));
         ch_timing = (Chronometer) findViewById(R.id.ch_timing);
+        tv_diff=(TextView) findViewById(R.id.tv_diff);
+    }
+    private void displayView() {
+        tv_fault.setText(Integer.toString(fault) + "/"+ Integer.toString(maxFault));
+        tv_diff.setText("  " + dif + "  ");
     }
 
     private void initCellView() {
@@ -2222,6 +2247,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
                     bt_hint.getBackground().setAlpha(44);
                     bt_hint.setTextColor(Color.parseColor("#FFFFFF"));
                 }
+                countPoint();
             }
         }
         if (view == bt_clear) {
@@ -2318,8 +2344,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
                 } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
                     showBoard[selX][selY] = 2;
                 }
-                countPoint();
             }
+            countPoint();
         }
         if (view == bt_1) {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
@@ -2328,8 +2354,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
                 } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
                     showBoard[selX][selY] = 1;
                 }
-                countPoint();
             }
+            countPoint();
         }
         if (view == c00) {
             selX = 0;
@@ -2655,8 +2681,6 @@ public class SingleMode extends Activity implements View.OnClickListener {
             selX = 8;
             selY = 8;
         }
-
-        //Toast.makeText(SingleMode.this, Integer.toString(showBoard[selX][selY]), Toast.LENGTH_SHORT).show();
         showAllBoard();
     }
 
@@ -2677,13 +2701,13 @@ public class SingleMode extends Activity implements View.OnClickListener {
                 if (dataBoard[i][j] == showBoard[i][j]) point = point + 1;
             }
         }
+        point = nRemove + point - 81;
+        Toast.makeText(SingleMode.this, Integer.toString(point) + " " + Boolean.toString(point == nRemove), Toast.LENGTH_SHORT).show();
         if (point == nRemove) {
             //finish game -> do something
             Toast.makeText(SingleMode.this, "You win!", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-
     }
 
     public void startTimming(){
@@ -2691,7 +2715,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
         ch_timing.start();
     }
     public void pauseTimming(){
-        timePause=SystemClock.elapsedRealtime() - ch_timing.getBase() -1;
+        timePause=SystemClock.elapsedRealtime() - ch_timing.getBase() - 100;
         ch_timing.stop();
     }
 }

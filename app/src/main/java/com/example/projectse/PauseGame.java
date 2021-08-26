@@ -1,7 +1,5 @@
 package com.example.projectse;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +13,7 @@ ImageButton im;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pause_game);
+        overridePendingTransition(R.anim.fade_animation, R.anim.fade_animation);
         bt=(Button) findViewById(R.id.bt);
         im=(ImageButton) findViewById(R.id.im);
         bt.setOnClickListener(this);
