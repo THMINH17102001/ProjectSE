@@ -3,8 +3,10 @@ package com.example.projectse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -28,6 +30,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
     Button bt_help, bt_hint, bt_note, bt_pause, bt_clear;
     TextView tv_fault;
     Chronometer ch_timing;
+    long timePause;
     int dataBoard[][];
     int showBoard[][];
     int noteBoard[][];
@@ -44,17 +47,31 @@ public class SingleMode extends Activity implements View.OnClickListener {
         initView();
         point = 0;
         nRemove = 60;
+        timePause=0;
         Sudoku sdk = new Sudoku(nRemove);
         showBoard = sdk.getShwBoard();
         dataBoard = sdk.getSolBoard();
         showAllBoard();
+        startTimming();
         setListen();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimming();
+    }
+
+    @Override
+    protected void onStop() {
+        pauseTimming();
+        super.onStop();
     }
 
     private void setListen() {
         bt_note.setOnClickListener(this);
         bt_hint.setOnClickListener(this);
         bt_clear.setOnClickListener(this);
+        bt_pause.setOnClickListener(this);
         bt_1.setOnClickListener(this);
         bt_2.setOnClickListener(this);
         bt_3.setOnClickListener(this);
@@ -156,8 +173,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
         fault = 0;
         hint = 3;
         noteOn = 0;
-        selX = 9;
-        selY = 9;
+        selX = 0;
+        selY = 0;
         maxFault=3;
         rand = new Random();
         bt_1 = (Button) findViewById(R.id.bt_1);
@@ -170,7 +187,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
         bt_8 = (Button) findViewById(R.id.bt_8);
         bt_9 = (Button) findViewById(R.id.bt_9);
         bt_note = (Button) findViewById(R.id.ib_note);
-        bt_pause = (Button) findViewById(R.id.ib_note);
+        bt_pause = (Button) findViewById(R.id.ib_pause);
         bt_clear = (Button) findViewById(R.id.ib_clear);
         bt_hint = (Button) findViewById(R.id.ib_hint);
         tv_fault = (TextView) findViewById(R.id.tv_fault);
@@ -2180,6 +2197,10 @@ public class SingleMode extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if(view==bt_pause){
+            Intent i = new Intent(SingleMode.this, PauseGame.class);
+            startActivity(i);
+        }
         if (view == bt_hint) {
             if (selX < 0 || selX > 8 || selY < 0 || selY > 8) {
                 selX = 0;
@@ -2663,5 +2684,14 @@ public class SingleMode extends Activity implements View.OnClickListener {
         }
 
 
+    }
+
+    public void startTimming(){
+        ch_timing.setBase(SystemClock.elapsedRealtime() - timePause);
+        ch_timing.start();
+    }
+    public void pauseTimming(){
+        timePause=SystemClock.elapsedRealtime() - ch_timing.getBase() -1;
+        ch_timing.stop();
     }
 }

@@ -43,7 +43,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,13 +55,14 @@
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/playfault" />
+                        android:src="@drawable/playfault"
+                        android:paddingTop="4dp" />
                     <TextView
                         android:id="@+id/tv_fault"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:text="0/3"
-                        android:layout_marginLeft="2dp"
+                        android:layout_marginLeft="4dp"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#443E40"/>
@@ -73,16 +76,16 @@
                     <Chronometer
                         android:id="@+id/ch_timing"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#443E40"/>
                     <ImageView
-                        android:layout_marginLeft="2dp"
+                        android:layout_marginLeft="4dp"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/playtime"/>
-
+                        android:src="@drawable/playtime"
+                        android:paddingTop="4dp"/>
                 </LinearLayout>
             </FrameLayout>
             <LinearLayout
@@ -90,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="1dp">
                 <TextView
                     android:layout_width="376dp"
                     android:layout_height="1.5dp"
