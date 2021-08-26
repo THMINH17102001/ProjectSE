@@ -15,7 +15,7 @@ import android.view.WindowManager;
 
 public class SigninActivity extends AppCompatActivity {
 
-    Button signUpSwitchScr, signInBtn;
+    Button signUpSwitchScr, signInBtn, returnToUnsignedBtn;
     TextView text1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,15 @@ public class SigninActivity extends AppCompatActivity {
 
         signInBtn = findViewById(R.id.signin_SigninActivity);
         signUpSwitchScr = findViewById(R.id.signup_SigninActivity);
+        returnToUnsignedBtn = findViewById(R.id.returnToUnsigned);
+        returnToUnsignedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SigninActivity.this, UnsignedActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         signUpSwitchScr.setOnClickListener(new View.OnClickListener() {
             @Override

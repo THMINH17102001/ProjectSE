@@ -17,7 +17,7 @@ import android.view.WindowManager;
 
 public class UnsignedActivity extends AppCompatActivity {
 
-    Button sgleModeSwitchScrBtn, signInSwitchScrBtn;
+    Button sgleModeSwitchScrBtn, signInSwitchScrBtn, quitBtn;
     TextView text1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,28 @@ public class UnsignedActivity extends AppCompatActivity {
         //Buttons
         sgleModeSwitchScrBtn = findViewById(R.id.singlemode_UnsignedActivity);
         signInSwitchScrBtn = findViewById(R.id.signin_UnsignedActivity);
+        quitBtn = findViewById(R.id.quit_UnsignedActivity);
+
         signInSwitchScrBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(UnsignedActivity.this, SigninActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        sgleModeSwitchScrBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(UnsignedActivity.this, SingleMode.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        quitBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+                System.exit(0);
             }
         });
     }
