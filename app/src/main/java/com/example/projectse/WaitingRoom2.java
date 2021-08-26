@@ -87,7 +87,8 @@ public class WaitingRoom2 extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                //error-retry
+                messageRef.setValue(message);
             }
         });
     }
