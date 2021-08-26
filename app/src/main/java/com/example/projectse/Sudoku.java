@@ -4,6 +4,9 @@ package com.example.projectse;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Random;
 
 public class Sudoku {
@@ -29,6 +32,38 @@ public class Sudoku {
             }
         }
         removeCell();
+    }
+
+    Sudoku(String room, String dif){
+        if(dif.equals("Easy")) this.difVal= 55;
+        else if(dif.equals("Medium")) this.difVal= 65;
+        else if(dif.equals("Hard")) this.difVal= 75;
+        else this.difVal = 5;
+        shwBoard = new int[9][9];
+        solBoard = new int[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                shwBoard[i][j] = 0;
+            }
+        }
+        create3Box();
+        fillAll(0, 3);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                solBoard[i][j] = shwBoard[i][j];
+            }
+        }
+        removeCell();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("room");
+        myRef.child(room).child("s1").child("point").setValue(-1);
+        myRef.child(room).child("s2").child("point").setValue(-1);
+        for(int i=0;i<9;i++){
+            for(int j=0; j<9; j++){
+                myRef.child(room).child("data").child("data"+Integer.toString(i)+Integer.toString(j)).setValue(solBoard[i][j]);
+                myRef.child(room).child("show").child("data"+Integer.toString(i)+Integer.toString(j)).setValue(shwBoard[i][j]);
+            }
+        }
     }
 
     private void removeCell() {
@@ -73,7 +108,6 @@ public class Sudoku {
         }
         return true;
     }
-
     public boolean checkRow(int num, int x) {
         for (int j = 0; j < 9; j++) {
             if (shwBoard[x][j] == num) return false;
