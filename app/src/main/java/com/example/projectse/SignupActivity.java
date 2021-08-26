@@ -68,13 +68,12 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = nUsername.getEditText().getText().toString();
-                String password = nPassword.getEditText().getText().toString();
-                String cfPassword = nPasswordcf.getEditText().getText().toString();
+                final String username = nUsername.getEditText().getText().toString();
+                final String password = nPassword.getEditText().getText().toString();
+                final String cfPassword = nPasswordcf.getEditText().getText().toString();
 
                 fAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
                     if(task.isSuccessful())
@@ -90,12 +89,18 @@ public class SignupActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "Successful");
                             }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
                         });
                     }
                     else{
                         Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
 
 
