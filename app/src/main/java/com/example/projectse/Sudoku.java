@@ -30,16 +30,12 @@ public class Sudoku {
         }
         removeCell();
     }
-    Sudoku(){
-
-    }
 
     private void removeCell() {
         int i, j;
         for (int nore = 0; nore < difVal; nore++) {
             i = rd.nextInt(9);
             j = rd.nextInt(9);
-            Log.e("mess", Integer.toString(nore));
             if (shwBoard[i][j] != 0) {
                 shwBoard[i][j] = 0;
             } else {
