@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -73,33 +74,52 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = nUsername.getEditText().getText().toString();
                 final String password = nPassword.getEditText().getText().toString();
-                final String cfPassword = nPasswordcf.getEditText().getText().toString();
+                final String passwordCF = nPasswordcf.getEditText().getText().toString();
 
-                fAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
-                    if(task.isSuccessful())
-                    {
-                        Toast.makeText(SignupActivity.this, "user created", Toast.LENGTH_SHORT).show();
-                        userID = fAuth.getCurrentUser().getUid();
-                        DocumentReference documentReference = usersDB.collection("users").document(userID);
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("username", username);
-                        user.put("password", password);
-                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                if(TextUtils.isEmpty(username))
+                {
+                    nUsername.setError("Username cannot be empty ");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password))
+                {
+                    nPassword.setError("Password cannot be empty ");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(passwordCF))
+                {
+                    nUsername.setError("Password confirmation cannot be empty ");
+                    return;
+                }
+
+                boolean checkPasswordCF = password.equalsIgnoreCase(passwordCF);
+                if(checkPasswordCF == false)
+                {
+                    nPasswordcf.setError("Password confirmation does not match ");
+                    return;
+                }
+                Map<String, Object> user = new HashMap<>();
+                user.put("username", username);
+                user.put("password", password);
+
+// Add a new document with a generated ID
+                usersDB.collection("users")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Successful");
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(SignupActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
+                                String error = e.getMessage();
+                                Toast.makeText(SignupActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }
-                    else{
-                        Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
             }
 

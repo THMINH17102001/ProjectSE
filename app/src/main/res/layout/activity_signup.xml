@@ -65,6 +65,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/newUsernameEditText"
             android:hint="New Username"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -87,6 +88,7 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/newPasswordEditText"
+            android:inputType="textPassword"
             android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,6 +111,7 @@
         android:layout_marginTop="20dp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/newConfirmPasswordEditText"
+            android:inputType="textPassword"
             android:hint="Confirm Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
