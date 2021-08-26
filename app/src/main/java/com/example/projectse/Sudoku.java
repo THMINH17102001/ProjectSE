@@ -13,15 +13,6 @@ public class Sudoku {
     Random rd = new Random();
 
     Sudoku(int N) {
-        switch (N) {
-            case 0:
-                this.difVal = 45;
-                break;
-            case 1:
-                this.difVal = 50;
-            case 2:
-                this.difVal = 55;
-        }
         this.difVal = N;
         shwBoard = new int[9][9];
         solBoard = new int[9][9];
@@ -45,7 +36,6 @@ public class Sudoku {
         for (int nore = 0; nore < difVal; nore++) {
             i = rd.nextInt(9);
             j = rd.nextInt(9);
-            Log.e("mess", Integer.toString(nore));
             if (shwBoard[i][j] != 0) {
                 shwBoard[i][j] = 0;
             } else {
