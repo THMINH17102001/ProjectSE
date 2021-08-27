@@ -207,7 +207,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
     private void initValue() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-        dif=sharedPreferences.getString("dif", "Easy");
+        dif=sharedPreferences.getString("dif", "Test");
         dataBoard = new int[9][9];
         showBoard = new int[9][9];
         noteBoard = new int[9][9];
@@ -2763,6 +2763,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
                 Toast.makeText(SingleMode.this, "You lose!", Toast.LENGTH_SHORT).show();
                 editor.putBoolean("unDone", false);
                 editor.commit();
+                Intent i = new Intent(SingleMode.this , LoseGame.class);
+                startActivity(i);
                 finish();
             }
         }
@@ -2778,6 +2780,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
             editor.putBoolean("unDone",false);
             editor.commit();
             Toast.makeText(SingleMode.this, "You win!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(SingleMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
     }

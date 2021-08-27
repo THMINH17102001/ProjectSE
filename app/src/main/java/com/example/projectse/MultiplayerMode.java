@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MultiplayerMode extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
@@ -48,7 +50,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             c80, c81, c82, c83, c84, c85, c86, c87, c88;
     Button bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9;
     Button bt_help, bt_hint, bt_note, bt_clear;
-    TextView tv_fault, tv_diff, tv_timing, tv_p1, tv_p2, tv_user2, tv_user1;
+    TextView tv_fault, tv_diff, tv_timing, tv_p1, tv_p2, tv_user2, tv_user1, tv_hide;
     String dif;
     int dataBoard[][];
     int showBoard[][];
@@ -63,9 +65,9 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_multiplayer_mode);
         initValue();
         initView();
+        readPoint();
         initBoard();
         displayView();
-        readPoint();
         showAllBoard();
         setListen();
     }
@@ -78,6 +80,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                 tv_p2.setText(Integer.toString(compPoint));
                 compState=dataSnapshot.child("room").child(room).child(comprole).child("state").getValue(int.class);
                 selfState=dataSnapshot.child("room").child(room).child(role).child("state").getValue(int.class);
+                Log.e("msg", Integer.toString(compState));
                 if(compPoint == nRemove ||compPoint==-1){
                     endGame();
                 }
@@ -113,12 +116,16 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                     compPoint=task.getResult().child(comprole).child("point").getValue(int.class);
                     tv_p1.setText(Integer.toString(selfPoint));
                     tv_p2.setText(Integer.toString(compPoint));
+                    tv_hide.setText("Waiting for " + tv_user2.getText());
                     showAllBoard();
+                    countPoint();
+                    tv_hide.setVisibility(View.INVISIBLE);
                     startTimming();
                 }
             }
         });
     }
+
     private void setListen() {
         bt_note.setOnClickListener(this);
         bt_hint.setOnClickListener(this);
@@ -272,6 +279,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         tv_user2=(TextView) findViewById(R.id.tv_user2);
         tv_p1=(TextView)findViewById(R.id.tv_p1);
         tv_p2=(TextView) findViewById(R.id.tv_p2);
+        tv_hide=(TextView) findViewById(R.id.tv_hide);
     }
     private void displayView() {
         tv_fault.setText(Integer.toString(fault) + "/"+ Integer.toString(maxFault));
@@ -2779,6 +2787,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                 //lose game -> do something
                 Toast.makeText(MultiplayerMode.this, "You lose!", Toast.LENGTH_SHORT).show();
                 myRef.child(room).child(role).child("point").setValue(-1);
+                Intent i = new Intent(MultiplayerMode.this , LoseGame.class);
+                startActivity(i);
                 finish();
             }
         }
@@ -2794,6 +2804,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         if (selfPoint == nRemove) {
             //finish game -> do something
             Toast.makeText(MultiplayerMode.this, "You win!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
     }
@@ -2842,14 +2854,20 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     private void endGame() {
         if(selfPoint>compPoint){
             //win
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
         if(selfPoint<compPoint){
             //lose
+            Intent i = new Intent(MultiplayerMode.this , LoseGame.class);
+            startActivity(i);
             finish();
         }
         if(selfPoint==compPoint){
             //tie
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
     }

@@ -57,8 +57,8 @@ public class Sudoku {
         DatabaseReference myRef = database.getReference("room");
         myRef.child(room).child("s1").child("point").setValue(0);
         myRef.child(room).child("s2").child("point").setValue(0);
-        myRef.child(room).child("s1").child("state").setValue(3);
-        myRef.child(room).child("s2").child("state").setValue(3);
+        myRef.child(room).child("s1").child("state").setValue(0);
+        myRef.child(room).child("s2").child("state").setValue(0);
         for(int i=0;i<9;i++){
             for(int j=0; j<9; j++){
                 myRef.child(room).child("data").child(Integer.toString(i)+Integer.toString(j)).setValue(solBoard[i][j]);

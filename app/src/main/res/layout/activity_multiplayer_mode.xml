@@ -1333,4 +1333,12 @@
             android:textColor="#443E40"
             android:id="@+id/tv_user2"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Loading Game..."
+        android:textSize="20sp"
+        android:background="@color/white"
+        android:id="@+id/tv_hide"/>
 </FrameLayout>

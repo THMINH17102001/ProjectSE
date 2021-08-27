@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoseGame">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You Lose!"
+            android:textSize="65sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#6B6B6B">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap to continue"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#D1D1D1"
+            android:layout_marginBottom="120dp">
+        </TextView>
+
+    </LinearLayout>
+    <ImageButton
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="fitXY"
+    android:src="@drawable/lose"
+    android:background="@null"
+    android:id="@+id/bt_con"/>
+</FrameLayout>
