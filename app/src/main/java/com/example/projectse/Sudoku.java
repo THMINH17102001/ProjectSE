@@ -1,6 +1,5 @@
 package com.example.projectse;
 
-/* Java program for Sudoku generator  */
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,12 +55,14 @@ public class Sudoku {
         removeCell();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("room");
-        myRef.child(room).child("s1").child("point").setValue(-1);
-        myRef.child(room).child("s2").child("point").setValue(-1);
+        myRef.child(room).child("s1").child("point").setValue(0);
+        myRef.child(room).child("s2").child("point").setValue(0);
+        myRef.child(room).child("s1").child("state").setValue(3);
+        myRef.child(room).child("s2").child("state").setValue(3);
         for(int i=0;i<9;i++){
             for(int j=0; j<9; j++){
-                myRef.child(room).child("data").child("data"+Integer.toString(i)+Integer.toString(j)).setValue(solBoard[i][j]);
-                myRef.child(room).child("show").child("data"+Integer.toString(i)+Integer.toString(j)).setValue(shwBoard[i][j]);
+                myRef.child(room).child("data").child(Integer.toString(i)+Integer.toString(j)).setValue(solBoard[i][j]);
+                myRef.child(room).child("show").child(Integer.toString(i)+Integer.toString(j)).setValue(shwBoard[i][j]);
             }
         }
     }

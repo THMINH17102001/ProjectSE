@@ -1,5 +1,8 @@
 package com.example.projectse;
 
+
+import static java.lang.Integer.parseInt;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,26 +11,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
 public class MultiplayerMode extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    DatabaseReference mDatabase;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     Random rand = new Random();
     Button c00, c01, c02, c03, c04, c05, c06, c07, c08,
             c10, c11, c12, c13, c14, c15, c16, c17, c18,
@@ -40,36 +48,77 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             c80, c81, c82, c83, c84, c85, c86, c87, c88;
     Button bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9;
     Button bt_help, bt_hint, bt_note, bt_clear;
-    TextView tv_fault, tv_diff;
-    Chronometer ch_timing;
+    TextView tv_fault, tv_diff, tv_timing, tv_p1, tv_p2, tv_user2, tv_user1;
     String dif;
-    long timePause;
     int dataBoard[][];
     int showBoard[][];
     int noteBoard[][];
     public int fault, hint, selX, selY, noteOn, maxFault;
-    int point;
-    int nRemove;
-    String room, role;
+    int selfPoint, compPoint, nRemove, timeCounting, selfState, compState;
+    public String room, role, comprole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiplayer_mode);
         initValue();
-        //initView();
-        //initBoard();
-        //displayView();
-        //showAllBoard();
-        //startTimming();
-        //setListen();
+        initView();
+        initBoard();
+        displayView();
+        readPoint();
+        showAllBoard();
+        setListen();
+    }
+
+    private void readPoint() {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                compPoint=dataSnapshot.child("room").child(room).child(comprole).child("point").getValue(int.class);
+                tv_p2.setText(Integer.toString(compPoint));
+                compState=dataSnapshot.child("room").child(room).child(comprole).child("state").getValue(int.class);
+                selfState=dataSnapshot.child("room").child(room).child(role).child("state").getValue(int.class);
+                if(compPoint == nRemove ||compPoint==-1){
+                    endGame();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                selfState=selfState-1;
+                if(selfState<0) endGame();
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
     }
 
     private void initBoard() {
-
-
+        mDatabase.child("room").child(room).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(MultiplayerMode.this, "Server Disconnected", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+                    for(int i=0;i<9;i++){
+                        for(int j =0 ; j<9;j++) {
+                            String path = Integer.toString(i) + Integer.toString(j);
+                            dataBoard[i][j] = parseInt(task.getResult().child("data").child(path).getValue().toString());
+                            showBoard[i][j] = parseInt(task.getResult().child("show").child(path).getValue().toString());
+                        }
+                    }
+                    tv_user1.setText(task.getResult().child(role).child("uname").getValue(String.class));
+                    tv_user2.setText(task.getResult().child(comprole).child("uname").getValue(String.class));
+                    selfPoint=task.getResult().child(role).child("point").getValue(int.class);
+                    compPoint=task.getResult().child(comprole).child("point").getValue(int.class);
+                    tv_p1.setText(Integer.toString(selfPoint));
+                    tv_p2.setText(Integer.toString(compPoint));
+                    showAllBoard();
+                    startTimming();
+                }
+            }
+        });
     }
-
     private void setListen() {
         bt_note.setOnClickListener(this);
         bt_hint.setOnClickListener(this);
@@ -169,7 +218,10 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     private void initValue() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
+        mDatabase = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
         dif=sharedPreferences.getString("dif", "Easy");
+        FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef;
         dataBoard = new int[9][9];
         showBoard = new int[9][9];
         noteBoard = new int[9][9];
@@ -179,12 +231,17 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         selX = 0;
         selY = 0;
         maxFault=3;
-        point = 0;
+        selfPoint = 0;
+        compPoint = 0;
         nRemove = getDiff(dif);
-        timePause=0;
         rand = new Random();
+        timeCounting=1*60*1000;
         room="00004";
         role="s2";
+        if(role.equals("s2")) comprole="s1";
+        else comprole= "s2";
+        selfState=3;
+        compState=3;
     }
 
     private int getDiff(String dif) {
@@ -209,8 +266,12 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         bt_clear = (Button) findViewById(R.id.ib_clear);
         bt_hint = (Button) findViewById(R.id.ib_hint);
         tv_fault = (TextView) findViewById(R.id.tv_fault);
-        ch_timing = (Chronometer) findViewById(R.id.ch_timing);
         tv_diff=(TextView) findViewById(R.id.tv_diff);
+        tv_timing= (TextView) findViewById(R.id.tv_timing);
+        tv_user1=(TextView) findViewById(R.id.tv_user1);
+        tv_user2=(TextView) findViewById(R.id.tv_user2);
+        tv_p1=(TextView)findViewById(R.id.tv_p1);
+        tv_p2=(TextView) findViewById(R.id.tv_p2);
     }
     private void displayView() {
         tv_fault.setText(Integer.toString(fault) + "/"+ Integer.toString(maxFault));
@@ -220,6 +281,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             bt_hint.getBackground().setAlpha(44);
             bt_hint.setTextColor(Color.parseColor("#FFFFFF"));
         }
+        tv_timing.setText("00:00");
     }
 
     private void initCellView() {
@@ -2208,15 +2270,12 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     private void setNormal(Button c00) {
         c00.setTextColor(Color.parseColor("#433D3F"));
     }
-
     private void setFalse(Button c00) {
         c00.setTextColor(Color.parseColor("#FF825A"));
     }
-
     private void setNote(Button c00) {
         c00.setTextColor(Color.parseColor("#DCDE29"));
     }
-
     private void setBlank(Button c00) {
         c00.setTextColor(Color.parseColor("#433D3F"));
         c00.setText(" ");
@@ -2269,8 +2328,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 9;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 9;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2279,8 +2341,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 8;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 8;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2289,8 +2354,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 7;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 7;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2299,8 +2367,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 6;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 6;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2309,8 +2380,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 5;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 5;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2319,8 +2393,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 4;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 4;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2332,6 +2409,9 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                 } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
                     showBoard[selX][selY] = 3;
                 }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
+                }
             }
             countPoint();
         }
@@ -2339,8 +2419,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 2;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 2;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2349,8 +2432,11 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 1;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 1;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2683,6 +2769,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     }
 
     private void countPoint() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("room");
         if (showBoard[selX][selY] != 0 && showBoard[selX][selY] != dataBoard[selX][selY]) {
             //tang so loi
             fault = fault + 1;
@@ -2690,17 +2778,20 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             if(fault>maxFault){
                 //lose game -> do something
                 Toast.makeText(MultiplayerMode.this, "You lose!", Toast.LENGTH_SHORT).show();
+                myRef.child(room).child(role).child("point").setValue(-1);
                 finish();
             }
         }
-        point = 0;
+        selfPoint = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (dataBoard[i][j] == showBoard[i][j]) point = point + 1;
+                if (dataBoard[i][j] == showBoard[i][j]) selfPoint = selfPoint + 1;
             }
         }
-        point = nRemove + point - 81;
-        if (point == nRemove) {
+        selfPoint = nRemove + selfPoint - 81;
+        myRef.child(room).child(role).child("point").setValue(selfPoint);
+        tv_p1.setText(Integer.toString(selfPoint));
+        if (selfPoint == nRemove) {
             //finish game -> do something
             Toast.makeText(MultiplayerMode.this, "You win!", Toast.LENGTH_SHORT).show();
             finish();
@@ -2708,7 +2799,58 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     }
 
     public void startTimming(){
-        ch_timing.setBase(SystemClock.elapsedRealtime() - timePause);
-        ch_timing.start();
+        CountDownTimer countDownTimer = new CountDownTimer(timeCounting, 1000) {
+            @Override
+            public void onTick(long l) {
+                int min = timeCounting / 60000;
+                int sec = (timeCounting % 60000)/1000;
+                String timeSet="";
+                if(min<10) timeSet="0";
+                timeSet+=Integer.toString(min)+":";
+                if(sec<10) timeSet="0";
+                timeSet+=Integer.toString(sec);
+                tv_timing.setText(timeSet);
+                timeCounting=timeCounting-1000;
+                if(min%3==0) { //update time every 3mins
+                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+                    DatabaseReference myRef = database.getReference("room");
+                    myRef.child(room).child("time").setValue(min);
+                }
+//                if(role.equals("s1")){
+//                    if(timeCounting%10000==0){
+//                        myRef.child(room).child(role).child("state").setValue(selfState+1);
+//                        if(compState<0){
+//
+//                        }
+//                        myRef.child(room).child(comprole).child("state").setValue(compState-1);
+//
+//                    }
+//                }
+//                if(role.equals("s2")){
+//                    if(timeCounting%10000==5000){
+//
+//                    }
+//                }
+            }
+            @Override
+            public void onFinish() {
+                endGame();
+            }
+        }.start();
+    }
+
+    private void endGame() {
+        if(selfPoint>compPoint){
+            //win
+            finish();
+        }
+        if(selfPoint<compPoint){
+            //lose
+            finish();
+        }
+        if(selfPoint==compPoint){
+            //tie
+            finish();
+        }
     }
 }
