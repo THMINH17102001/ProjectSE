@@ -12,32 +12,24 @@
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:src="@drawable/a100_blue_palette_background"
-        app:layout_constraintHeight_percent=".20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".20"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="80dp"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/avt0"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintTop_toTopOf="@+id/imageView">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/sudoku_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView3"

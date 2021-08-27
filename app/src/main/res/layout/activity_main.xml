@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/sudoku_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/avt0"
         app:layout_constraintVertical_bias=".4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

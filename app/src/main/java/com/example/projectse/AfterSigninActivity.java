@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 public class AfterSigninActivity extends AppCompatActivity {
 
     Button singleModeSwitchScr, multiModeSwitchScr, quitBtn;
+    ImageButton avatar, displayName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,10 @@ public class AfterSigninActivity extends AppCompatActivity {
         singleModeSwitchScr = findViewById(R.id.singlemode_AfterSigninActivity);
         multiModeSwitchScr = findViewById(R.id.multimode_AfterSigninActivity);
         quitBtn = findViewById(R.id.quit_AfterSigninActivity);
+
+        avatar = findViewById(R.id.avatar_AfterSigninActivity);
+        displayName = findViewById(R.id.displayName_AfterSigninActivity);
+
         singleModeSwitchScr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
