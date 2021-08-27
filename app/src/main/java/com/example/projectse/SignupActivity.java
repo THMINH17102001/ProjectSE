@@ -10,17 +10,20 @@ import android.view.WindowManager;
 import android.widget.Button;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.textfield.TextInputLayout;
 
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import android.util.Log;
 import android.widget.Toast;
 import android.content.Context;
@@ -31,9 +34,6 @@ public class SignupActivity extends AppCompatActivity {
     Button signInSwitchScr, signUpBtn, returnToSigninScrBtn;
     TextInputLayout nUsername, nPassword, nPasswordcf;
     FirebaseFirestore usersDB = FirebaseFirestore.getInstance();
-
-    FirebaseAuth fAuth;
-    String userID;
     private static final String TAG = "SignupActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class SignupActivity extends AppCompatActivity {
         nUsername = findViewById(R.id.newUsernameLayout);
         nPassword = findViewById(R.id.newPasswordLayout);
         nPasswordcf = findViewById(R.id.newPasswordConfirmLayout);
-        fAuth = FirebaseAuth.getInstance();
 
         signInSwitchScr = findViewById(R.id.signin_SignupActivity);
         signUpBtn = findViewById(R.id.signup_SignupActivity);
@@ -76,6 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                 final String password = nPassword.getEditText().getText().toString();
                 final String passwordCF = nPasswordcf.getEditText().getText().toString();
 
+                DocumentSnapshot read;
                 if(TextUtils.isEmpty(username))
                 {
                     nUsername.setError("Username cannot be empty ");
@@ -104,27 +104,48 @@ public class SignupActivity extends AppCompatActivity {
                 user.put("username", username);
                 user.put("password", password);
 
-// Add a new document with a generated ID
-                usersDB.collection("users")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(SignupActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
+                usersDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            int flag = 0;
+                            for (QueryDocumentSnapshot document : task.getResult())
+                            {
+                                String checkUsername = document.getString("username");
+                                boolean x = username.equalsIgnoreCase(checkUsername);
+                                if( x == true)
+                                {
+                                    nUsername.setError("Username already exists");
+                                    flag = 1;
+                                    break;
+                                }
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                String error = e.getMessage();
-                                Toast.makeText(SignupActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
+                            if(flag != 1) {
+                                usersDB.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(SignupActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(SignupActivity.this, AfterSigninActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        String error = e.getMessage();
+                                        Toast.makeText(SignupActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
-                        });
 
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
             }
-
-
-
         });
 
     }

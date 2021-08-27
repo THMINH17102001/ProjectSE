@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectSE">
         <activity
+            android:name=".AfterSigninActivity"
+            android:exported="true" />
+        <activity
             android:name=".MultiplayerMode"
             android:exported="true" />
         <activity
