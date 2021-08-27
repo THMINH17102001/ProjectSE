@@ -2775,6 +2775,8 @@ public class SingleMode extends Activity implements View.OnClickListener {
         point = nRemove + point - 81;
         if (point == nRemove) {
             //finish game -> do something
+            editor.putBoolean("unDone",false);
+            editor.commit();
             Toast.makeText(SingleMode.this, "You win!", Toast.LENGTH_SHORT).show();
             finish();
         }
