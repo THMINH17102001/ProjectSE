@@ -30,7 +30,7 @@ public class AfterSigninActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AfterSigninActivity.this, SingleMode.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -39,7 +39,7 @@ public class AfterSigninActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AfterSigninActivity.this, WaitingRoom.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 

@@ -45,7 +45,7 @@ public class UnsignedActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UnsignedActivity.this, SigninActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -53,7 +53,7 @@ public class UnsignedActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UnsignedActivity.this, SingleMode.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 

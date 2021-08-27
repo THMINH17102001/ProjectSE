@@ -3,8 +3,10 @@ package com.example.projectse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Animation topAnim, bottomAnim;
     ImageView image;
     TextView logo, slogan;
+    Boolean undone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPreferences;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        undone=sharedPreferences.getBoolean("unDone", false);
 
         //Animation
         topAnim = AnimationUtils.loadAnimation( this, R.anim.main_top_animation);
@@ -40,9 +47,16 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, UnsignedActivity.class);
-                startActivity(intent);
-                finish();
+                if(undone) {
+                    Intent continueIntent = new Intent(MainActivity.this, Continue.class);
+                    startActivity(continueIntent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, UnsignedActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         }, 2000);
     }
