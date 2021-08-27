@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MultiplayerMode">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:translationY="-5dp">
+        <TextView
+            android:paddingTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:textColor="#4E4E89"
+            android:id="@+id/tv_p1"/>
+        <TextView
+            android:paddingTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:textColor="#4E4E89"/>
+        <TextView
+            android:paddingTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold"
+            android:textSize="50dp"
+            android:textColor="#4E4E89"
+            android:id="@+id/tv_p2"/>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,33 +44,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
                 <ImageButton
                     android:id="@+id/ib_help"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:scaleType="fitXY"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="10dp"
                     android:background="@color/white"
-                    android:src="@drawable/mhelp"
-                    android:layout_gravity="left"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mhelp" />
+
                 <TextView
                     android:id="@+id/tv_diff"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/layoutbutton1"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
+                    android:gravity="right"
                     android:text="  Easy  "
-                    android:layout_gravity="right"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,20 +110,27 @@
                     android:layout_gravity="right"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
-                    <Chronometer
-                        android:id="@+id/ch_timing"
+                    <TextView
+                        android:id="@+id/tv_timing"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="#443E40"/>
+                        android:text="00:00"
+                        android:textColor="#443E40"
+                        />
                     <ImageView
                         android:layout_marginLeft="4dp"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:src="@drawable/playtime"
-                        android:paddingTop="4dp"/>
+                        android:paddingTop="4dp"
+                        android:layout_marginRight="5dp"/>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"/>
+
             </FrameLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -1117,7 +1161,7 @@
                     android:text="3"
                     android:textSize="12dp"
                     android:layout_gravity="top"
-                    android:layout_marginRight="25dp"/>
+                    android:layout_marginRight="70dp"/>
                 <Button
                     android:id="@+id/ib_note"
                     android:layout_width="45dp"
@@ -1125,22 +1169,13 @@
                     android:scaleType="fitCenter"
                     android:background="@drawable/playnote"
                     android:layout_gravity="top"
-                    android:layout_marginRight="25dp"/>
+                    android:layout_marginRight="70dp"/>
                 <Button
                     android:id="@+id/ib_clear"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:scaleType="fitCenter"
-                    android:background="@drawable/playclear"
-                    android:layout_marginRight="25dp"/>
-                <Button
-                    android:id="@+id/ib_pause"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/playpause"
-                    android:layout_gravity="center"/>
-
+                    android:background="@drawable/playclear"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1266,4 +1301,36 @@
         </LinearLayout>
 
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:layout_marginTop="50dp">
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="36dp"
+            android:text="user123456"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:textColor="#443E40"
+            android:textAlignment="textEnd"
+            android:id="@+id/tv_user1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="       "
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="36dp"
+            android:text="yy1212"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:textColor="#443E40"
+            android:id="@+id/tv_user2"/>
+    </LinearLayout>
+</FrameLayout>

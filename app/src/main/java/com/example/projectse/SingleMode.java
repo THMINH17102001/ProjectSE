@@ -2312,8 +2312,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 9;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 9;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2322,8 +2325,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 8;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 8;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2332,8 +2338,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 7;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 7;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2342,8 +2351,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 6;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 6;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2352,8 +2364,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 5;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 5;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2362,8 +2377,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 4;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 4;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2375,6 +2393,9 @@ public class SingleMode extends Activity implements View.OnClickListener {
                 } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
                     showBoard[selX][selY] = 3;
                 }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
+                }
             }
             countPoint();
         }
@@ -2382,8 +2403,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 2;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 2;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();
@@ -2392,8 +2416,11 @@ public class SingleMode extends Activity implements View.OnClickListener {
             if (selX >= 0 && selX <= 8 && selY >= 0 && selY <= 8) {
                 if (noteOn == 1) {
                     noteBoard[selX][selY] = 1;
-                } else if (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY]) {
+                } else if (noteOn == 0 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
                     showBoard[selX][selY] = 1;
+                }
+                if (noteOn == 1 && (showBoard[selX][selY] == 0 || showBoard[selX][selY] != dataBoard[selX][selY])) {
+                    showBoard[selX][selY] = 0;
                 }
             }
             countPoint();

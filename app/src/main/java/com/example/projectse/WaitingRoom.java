@@ -61,7 +61,7 @@ public class WaitingRoom extends AppCompatActivity {
                 button.setEnabled(false);
                 roomName = playerName;
                 roomRef = database.getReference("rooms/" + roomName + "/player1");
-                //addRoomEventListener();
+                addRoomEventListener();
                 roomRef.setValue(playerName);
             }
         });
@@ -71,7 +71,7 @@ public class WaitingRoom extends AppCompatActivity {
                 //join existing room and add yourself as player2
                 roomName=roomsList.get(position);
                 roomRef=database.getReference("rooms/"+roomName+"/player2");
-                //addRoomEventListener();
+                addRoomEventListener();
                 roomRef.setValue(playerName);
 
             }
