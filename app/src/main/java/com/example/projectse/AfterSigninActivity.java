@@ -37,7 +37,7 @@ public class AfterSigninActivity extends AppCompatActivity {
         multiModeSwitchScr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AfterSigninActivity.this, MultiplayerMode.class);
+                Intent intent = new Intent(AfterSigninActivity.this, WaitingRoom.class);
                 startActivity(intent);
                 finish();
             }

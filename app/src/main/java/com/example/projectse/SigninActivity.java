@@ -83,8 +83,7 @@ public class SigninActivity extends AppCompatActivity {
                                 }
                             }
                             if(flag != 1) {
-
-                                Log.w(TAG, "Wrong username or password", task.getException());
+                                sUsername.setError("Wrong username or password");
                             }
                             else
                             {
