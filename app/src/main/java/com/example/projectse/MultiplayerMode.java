@@ -2787,6 +2787,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                 //lose game -> do something
                 Toast.makeText(MultiplayerMode.this, "You lose!", Toast.LENGTH_SHORT).show();
                 myRef.child(room).child(role).child("point").setValue(-1);
+                Intent i = new Intent(MultiplayerMode.this , LoseGame.class);
+                startActivity(i);
                 finish();
             }
         }
@@ -2802,6 +2804,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         if (selfPoint == nRemove) {
             //finish game -> do something
             Toast.makeText(MultiplayerMode.this, "You win!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
     }
@@ -2850,14 +2854,20 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     private void endGame() {
         if(selfPoint>compPoint){
             //win
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
         if(selfPoint<compPoint){
             //lose
+            Intent i = new Intent(MultiplayerMode.this , LoseGame.class);
+            startActivity(i);
             finish();
         }
         if(selfPoint==compPoint){
             //tie
+            Intent i = new Intent(MultiplayerMode.this , WinGame.class);
+            startActivity(i);
             finish();
         }
     }
