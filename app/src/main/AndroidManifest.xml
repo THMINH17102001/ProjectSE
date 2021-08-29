@@ -56,12 +56,7 @@
         <activity
             android:name=".SigninActivity"
             android:exported="true" />
-        <activity
-            android:name=".ChangeAvatar"
-            android:exported="true" />
-        <activity
-            android:name=".ChangeDisplayName"
-            android:exported="true" />
+        
         <activity
             android:name=".WaitingRoom2"
             android:exported="true" />
