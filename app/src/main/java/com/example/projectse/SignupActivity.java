@@ -114,7 +114,7 @@ public class SignupActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
                                 String checkUsername = document.getString("username");
-                                boolean x = username.equalsIgnoreCase(checkUsername);
+                                boolean x = username.equals(checkUsername);
                                 if( x == true)
                                 {
                                     nUsername.setError("Username already exists");

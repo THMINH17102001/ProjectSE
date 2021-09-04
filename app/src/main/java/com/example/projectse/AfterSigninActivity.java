@@ -56,5 +56,13 @@ public class AfterSigninActivity extends AppCompatActivity {
             }
         });
 
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AfterSigninActivity.this, ChangeAvatar.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

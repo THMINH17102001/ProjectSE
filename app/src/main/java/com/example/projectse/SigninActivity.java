@@ -3,6 +3,7 @@ package com.example.projectse;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -21,6 +22,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,6 +37,12 @@ public class SigninActivity extends AppCompatActivity {
     Button signUpSwitchScr, signInBtn, returnToUnsignedBtn;
     TextInputLayout sUsername, sPassword;
     private static final String TAG = "SigninActivity";
+
+    FirebaseFirestore usersDB;
+    FirebaseDatabase signInDB;
+    DatabaseReference playerRef;
+    String playerName = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +64,27 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseFirestore usersDB = FirebaseFirestore.getInstance();
+        usersDB = FirebaseFirestore.getInstance();
+        signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         sUsername = findViewById(R.id.username_SigninActivity);
         sPassword = findViewById(R.id.password_SigninActivity);
+
+        //Check if player already exists
+        SharedPreferences preferences = getSharedPreferences("PREF", 0);
+        playerName = preferences.getString("playerName", "");
+        if(!playerName.equals(""))
+        {
+            playerRef = signInDB.getReference("player/" + playerName);
+            addEventListener();
+            playerRef.setValue("");
+        }
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                final String username = sUsername.getEditText().getText().toString();
-                final String password = sPassword.getEditText().getText().toString();
+                String username = sUsername.getEditText().getText().toString();
+                String password = sPassword.getEditText().getText().toString();
 
                 usersDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
                 {
@@ -74,8 +97,8 @@ public class SigninActivity extends AppCompatActivity {
                             {
                                 String checkUsername = document.getString("username");
                                 String checkPassword = document.getString("password");
-                                boolean x = username.equalsIgnoreCase(checkUsername);
-                                boolean y = password.equalsIgnoreCase(checkPassword);
+                                boolean x = username.equals(checkUsername);
+                                boolean y = password.equals(checkPassword);
                                 if( x == true && y == true)
                                 {
                                     flag = 1;
@@ -87,9 +110,13 @@ public class SigninActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
-                                startActivity(intent);
-                                finish();
+                                playerName = username;
+                                if(!playerName.equals(""))
+                                {
+                                    playerRef = signInDB.getReference("player/" + playerName);
+                                    addEventListener();
+                                    playerRef.setValue("");
+                                }
                             }
 
                         } else {
@@ -108,5 +135,29 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void addEventListener()
+    {
+        playerRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!playerName.equals(""))
+                {
+                    SharedPreferences preferences = getSharedPreferences("PREFS",0);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("playerName", playerName);
+                    editor.apply();
+
+                    Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

@@ -34,6 +34,7 @@ public class WaitingRoom extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference roomRef;
     DatabaseReference roomsRef;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class WaitingRoom extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         //get the player name and assign his roomname as his player name
-        SharedPreferences preferences = getSharedPreferences("PREPS", 0);
+        preferences = getSharedPreferences("PREPS", 0);
         playerName = preferences.getString("playerName", "");
         roomName = playerName;
 
@@ -73,7 +74,6 @@ public class WaitingRoom extends AppCompatActivity {
                 roomRef=database.getReference("rooms/"+roomName+"/player2");
                 addRoomEventListener();
                 roomRef.setValue(playerName);
-
             }
         });
         //show if new room is available
@@ -117,10 +117,7 @@ public class WaitingRoom extends AppCompatActivity {
                     ArrayAdapter<String> adapter=new ArrayAdapter<>(WaitingRoom.this, android.R.layout.simple_list_item_1,roomsList);
                     listView.setAdapter(adapter);
                 }
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 //error - nothing

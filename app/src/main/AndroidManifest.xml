@@ -22,7 +22,6 @@
             android:name=".AfterSigninActivity"
             android:exported="true" />
         <activity
-            android:theme="@android:style/Theme.Dialog"
             android:name=".ChangeAvatar"
             android:exported="true" />
         <activity
