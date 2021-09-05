@@ -27,24 +27,25 @@ public class WaitingRoom extends AppCompatActivity {
 
     ListView listView;
     Button button;
+
     List<String> roomsList;
+
     String playerName="";
     String roomName="";
 
     FirebaseDatabase database;
     DatabaseReference roomRef;
     DatabaseReference roomsRef;
-    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
-        database = FirebaseDatabase.getInstance();
+        database=FirebaseDatabase.getInstance();
 
         //get the player name and assign his roomname as his player name
-        preferences = getSharedPreferences("PREPS", 0);
+        SharedPreferences preferences = getSharedPreferences("PREPS", 0);
         playerName = preferences.getString("playerName", "");
         roomName = playerName;
 
@@ -57,7 +58,7 @@ public class WaitingRoom extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             //Create room and add yourself as player 1
-            public void onClick(View view) {
+            public void onClick(View v) {
                 button.setText("CREATING ROOM");
                 button.setEnabled(false);
                 roomName = playerName;
@@ -89,6 +90,7 @@ public class WaitingRoom extends AppCompatActivity {
                 button.setEnabled(true);
                 Intent intent=new Intent(getApplicationContext(),WaitingRoom2.class); //fix this to Waiting room 2
                 intent.putExtra("roomName",roomName);
+                startActivity(intent);
 
             }
 
@@ -113,7 +115,7 @@ public class WaitingRoom extends AppCompatActivity {
                 Iterable<DataSnapshot> rooms= snapshot.getChildren();//Update from datasnapshot getchilden
                 for(DataSnapshot snapshot1:rooms)
                 {
-                    roomsList.add(snapshot.getKey());
+                    roomsList.add(snapshot1.getKey());
                     ArrayAdapter<String> adapter=new ArrayAdapter<>(WaitingRoom.this, android.R.layout.simple_list_item_1,roomsList);
                     listView.setAdapter(adapter);
                 }
