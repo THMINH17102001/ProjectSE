@@ -65,12 +65,12 @@ public class SigninActivity extends AppCompatActivity {
         });
 
         usersDB = FirebaseFirestore.getInstance();
-        signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+        signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app/");
         sUsername = findViewById(R.id.username_SigninActivity);
         sPassword = findViewById(R.id.password_SigninActivity);
 
         //Check if player already exists
-        SharedPreferences preferences = getSharedPreferences("PREF", 0);
+        SharedPreferences preferences = getSharedPreferences("PREPS", 0);
         playerName = preferences.getString("playerName", "");
         if(!playerName.equals(""))
         {
@@ -143,7 +143,7 @@ public class SigninActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!playerName.equals(""))
                 {
-                    SharedPreferences preferences = getSharedPreferences("PREFS",0);
+                    SharedPreferences preferences = getSharedPreferences("PREPS",0);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("playerName", playerName);
                     editor.apply();
