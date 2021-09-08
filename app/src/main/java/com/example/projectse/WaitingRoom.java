@@ -114,7 +114,7 @@ public class WaitingRoom extends AppCompatActivity {
                 Iterable<DataSnapshot> rooms= snapshot.getChildren();//Update from datasnapshot getchilden
                 for(DataSnapshot snapshot1:rooms)
                 {
-                    roomsList.add(snapshot.getKey());
+                    roomsList.add(snapshot1.getKey());
                     ArrayAdapter<String> adapter=new ArrayAdapter<>(WaitingRoom.this, android.R.layout.simple_list_item_1,roomsList);
                     listView.setAdapter(adapter);
                 }
