@@ -65,19 +65,19 @@ public class SigninActivity extends AppCompatActivity {
         });
 
         usersDB = FirebaseFirestore.getInstance();
-        signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         sUsername = findViewById(R.id.username_SigninActivity);
         sPassword = findViewById(R.id.password_SigninActivity);
 
         //Check if player already exists
-        SharedPreferences preferences = getSharedPreferences("PREPS", 0);
-        playerName = preferences.getString("playerName", "");
-        if(!playerName.equals(""))
-        {
-            playerRef = signInDB.getReference("player/" + playerName);
-            addEventListener();
-            playerRef.setValue("");
-        }
+        //SharedPreferences preferences = getSharedPreferences("PREPS", 0);
+        //playerName = preferences.getString("playerName", "");
+        //if(!playerName.equals(""))
+        //{
+        //    playerRef = signInDB.getReference("player/" + playerName);
+        //    addEventListener();
+        //    playerRef.setValue("");
+        //}
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
