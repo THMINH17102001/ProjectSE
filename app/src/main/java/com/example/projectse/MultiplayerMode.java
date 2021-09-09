@@ -36,9 +36,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     DatabaseReference mDatabase;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
     Random rand = new Random();
+    Boolean run = true;
     Button c00, c01, c02, c03, c04, c05, c06, c07, c08,
             c10, c11, c12, c13, c14, c15, c16, c17, c18,
             c20, c21, c22, c23, c24, c25, c26, c27, c28,
@@ -76,13 +75,14 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                compPoint=dataSnapshot.child("room").child(room).child(comprole).child("point").getValue(int.class);
-                tv_p2.setText(Integer.toString(compPoint));
-                compState=dataSnapshot.child("room").child(room).child(comprole).child("state").getValue(int.class);
-                selfState=dataSnapshot.child("room").child(room).child(role).child("state").getValue(int.class);
-                Log.e("msg", Integer.toString(compState));
-                if(compPoint == nRemove ||compPoint==-1){
-                    endGame();
+                if(run==true) {
+                    compPoint = dataSnapshot.child("room").child(room).child(comprole).child("point").getValue(int.class);
+                    tv_p2.setText(Integer.toString(compPoint));
+                    compState = dataSnapshot.child("room").child(room).child(comprole).child("state").getValue(int.class);
+                    selfState = dataSnapshot.child("room").child(room).child(role).child("state").getValue(int.class);
+                    if (compPoint == nRemove || compPoint == -1) {
+                        endGame();
+                    }
                 }
             }
             @Override
@@ -226,8 +226,8 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
         mDatabase = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-        dif=sharedPreferences.getString("roomdif", "Easy");
-        role=sharedPreferences.getString("slot", "s1");
+        dif=sharedPreferences.getString("roomdif", "Test");
+        role=sharedPreferences.getString("role", "s1");
         room=sharedPreferences.getString("roomid", "00004");
         FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef;
@@ -235,7 +235,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         showBoard = new int[9][9];
         noteBoard = new int[9][9];
         fault = 0;
-        hint = 3;
+        hint = 5;
         noteOn = 0;
         selX = 0;
         selY = 0;
@@ -2856,19 +2856,18 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
             //win
             Intent i = new Intent(MultiplayerMode.this , WinGame.class);
             startActivity(i);
-            finish();
         }
         if(selfPoint<compPoint){
             //lose
             Intent i = new Intent(MultiplayerMode.this , LoseGame.class);
             startActivity(i);
-            finish();
         }
         if(selfPoint==compPoint){
             //tie
             Intent i = new Intent(MultiplayerMode.this , WinGame.class);
             startActivity(i);
-            finish();
         }
+        run=false;
+        finish();
     }
 }

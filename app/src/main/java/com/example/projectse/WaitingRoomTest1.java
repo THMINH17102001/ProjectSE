@@ -20,7 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WaitingRoomTest1 extends AppCompatActivity {
     private DatabaseReference mDatabase;
+    Boolean t = false;
     SharedPreferences sharedPreferences;
+    ValueEventListener postListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,15 +30,15 @@ public class WaitingRoomTest1 extends AppCompatActivity {
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
         String roomid = sharedPreferences.getString("roomid", "");
         mDatabase = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("room/"+roomid+"/s2");
-        ValueEventListener postListener = new ValueEventListener() {
+        postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 Boolean post = dataSnapshot.child("uname").getValue(String.class).equals("&^$%$");
-                Toast.makeText(WaitingRoomTest1.this, post.toString(),Toast.LENGTH_SHORT).show();
-                if(!post){
+                if(!post&&!t){
                     Intent i = new Intent(WaitingRoomTest1.this, MultiplayerMode.class);
                     startActivity(i);
+                    t=true;
                     finish();
                 }
             }

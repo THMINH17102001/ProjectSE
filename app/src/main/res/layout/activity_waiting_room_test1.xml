@@ -5,5 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WaitingRoomTest1">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Waiting for competitor..."
+        android:textSize="20sp"
+        android:background="@color/white"
+        android:id="@+id/tv_hide"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

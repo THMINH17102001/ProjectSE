@@ -32,7 +32,7 @@ public class WaitingRoom extends AppCompatActivity {
     List<String> roomsList;
     String playerName="";
     String roomName="";
-
+    Boolean run=true;
     FirebaseDatabase database;
     DatabaseReference roomRef;
     DatabaseReference roomsRef;
@@ -69,14 +69,13 @@ public class WaitingRoom extends AppCompatActivity {
                 roomName = playerName;
                 roomRef = database.getReference("room/" + roomName + "/s1/uname");
                 roomRef.setValue(playerName);
-                Sudoku sdk = new Sudoku(playerName, "Easy");
+                Sudoku sdk = new Sudoku(playerName, "Test");
                 editor.putString("role", "s1");
-                editor.putString("roomdiff", "Easy");
+                editor.putString("roomdiff", "Test");
                 editor.putString("roomid", roomName);
                 editor.commit();
                 roomRef = database.getReference("room/" + roomName + "/s2/uname");
                 roomRef.setValue("&^$%$");
-
                 addRoomEventListener();
 
 
@@ -92,7 +91,6 @@ public class WaitingRoom extends AppCompatActivity {
                     roomRef = database.getReference("room/" + roomName + "/s2/uname");
                     addRoomEventListener();
                     roomRef.setValue(playerName);
-
                     editor.putString("role", "s2");
                     editor.putString("roomdiff", "Easy");
                     editor.putString("roomid", roomName);
@@ -108,13 +106,16 @@ public class WaitingRoom extends AppCompatActivity {
         roomRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //join the room
-                button.setText("CREATE ROOM");
-                button.setEnabled(true);
-                Intent intent=new Intent(getApplicationContext(),WaitingRoomTest1.class); //fix this to Waiting room 2
-                intent.putExtra("roomName",roomName);
-                startActivity(intent);
-                finish();
+                if(run==true) {
+                    //join the room
+                    button.setText("CREATE ROOM");
+                    button.setEnabled(true);
+                    Intent intent = new Intent(getApplicationContext(), WaitingRoomTest1.class); //fix this to Waiting room 2
+                    intent.putExtra("roomName", roomName);
+                    startActivity(intent);
+                    run=false;
+                    finish();
+                }
             }
 
             @Override
@@ -134,14 +135,15 @@ public class WaitingRoom extends AppCompatActivity {
         roomsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //show list of rooms
-                roomsList.clear();
-                Iterable<DataSnapshot> rooms= snapshot.getChildren();//Update from datasnapshot getchilden
-                for(DataSnapshot snapshot1:rooms)
-                {
-                    roomsList.add(snapshot1.getKey());
-                    ArrayAdapter<String> adapter=new ArrayAdapter<>(WaitingRoom.this, android.R.layout.simple_list_item_1,roomsList);
-                    listView.setAdapter(adapter);
+                if(run==true) {
+                    //show list of rooms
+                    roomsList.clear();
+                    Iterable<DataSnapshot> rooms = snapshot.getChildren();//Update from datasnapshot getchilden
+                    for (DataSnapshot snapshot1 : rooms) {
+                        roomsList.add(snapshot1.getKey());
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(WaitingRoom.this, android.R.layout.simple_list_item_1, roomsList);
+                        listView.setAdapter(adapter);
+                    }
                 }
             }
             @Override
