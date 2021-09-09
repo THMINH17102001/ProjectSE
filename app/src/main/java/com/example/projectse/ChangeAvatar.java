@@ -1,6 +1,7 @@
 package com.example.projectse;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,7 +28,7 @@ public class ChangeAvatar extends Activity implements View.OnClickListener {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width*.8), (int)(height*.4));
+        getWindow().setLayout((int) (width*.8), (int)(height*.48));
         initView();
         avt0.setOnClickListener(this);
         avt1.setOnClickListener(this);
@@ -132,8 +133,14 @@ public class ChangeAvatar extends Activity implements View.OnClickListener {
             resetAvatar(7);
             choosing=7;
         }
+
         if(view==bt_change){
             Toast.makeText(ChangeAvatar.this, "Changed Avatar", Toast.LENGTH_SHORT).show();
+            //send avatar number chosen to AfterSigninActivity
+            Intent intent = new Intent();
+            intent.putExtra("avatarChoice",choosing); //
+            setResult(RESULT_OK, intent);
+
             editor.putInt("avt", choosing);
             editor.commit();
             finish();

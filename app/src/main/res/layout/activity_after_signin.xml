@@ -20,21 +20,21 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/avatar_AfterSigninActivity"
+        android:id="@+id/avatarBtn_AfterSigninActivity"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/round_buttonunpick"
         android:scaleType="fitCenter"
         android:src="@drawable/mavatar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/avatar_AfterSigninActivity"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.34" />
 
     <ImageButton
-        android:id="@+id/displayName_AfterSigninActivity"
+        android:id="@+id/displayNameBtn_AfterSigninActivity"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/round_buttonunpick"
@@ -43,29 +43,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/avatar_AfterSigninActivity"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.34" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="80dp"
+    <ImageView
+        android:id="@+id/avatar_AfterSigninActivity"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/avt0"
+        app:layout_constraintVertical_bias=".33"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias=".33"
-        app:layout_constraintTop_toTopOf="@+id/imageView">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/sudoku_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"

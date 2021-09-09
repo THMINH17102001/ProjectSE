@@ -103,6 +103,8 @@ public class SignupActivity extends AppCompatActivity {
                 Map<String, Object> user = new HashMap<>();
                 user.put("username", username);
                 user.put("password", password);
+                user.put("avt", "0");
+                user.put("displayName", "");
 
                 usersDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
                 {
@@ -123,11 +125,14 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             }
                             if(flag != 1) {
-                                usersDB.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                usersDB.collection("users").document(username)
+                                        .set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(DocumentReference documentReference) {
+                                    public void onSuccess(Void aVoid) {
                                         Toast.makeText(SignupActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(SignupActivity.this, AfterSigninActivity.class);
+                                        intent.putExtra("signedUpPlayerUsername", username);
                                         startActivity(intent);
                                         finish();
                                     }

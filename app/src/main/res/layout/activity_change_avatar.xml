@@ -9,29 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="40dp">
+
         <LinearLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/notice1"
             android:orientation="vertical"
-            android:background="@drawable/notice1">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose your avatar"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="27dp"
                 android:paddingTop="10dp"
-                android:textColor="#433D3F"/>
+                android:text="Choose your avatar"
+                android:textColor="#433D3F"
+                android:textSize="27dp"
+                android:textStyle="bold" />
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="15dp"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="80dp">
-                <TableRow
-                    android:gravity="center">
+
+                <TableRow android:gravity="center">
+
                     <ImageButton
                         android:id="@+id/ib_avt0"
                         android:layout_width="70dp"
@@ -39,38 +47,43 @@
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt0"/>
+                        android:src="@drawable/avt0" />
+
                     <ImageButton
                         android:id="@+id/ib_avt1"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt1"/>
+                        android:src="@drawable/avt1" />
+
                     <ImageButton
                         android:id="@+id/ib_avt2"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt2"/>
+                        android:src="@drawable/avt2" />
+
                     <ImageButton
                         android:id="@+id/ib_avt3"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt3"/>
+                        android:src="@drawable/avt3" />
                 </TableRow>
+
                 <TableRow
-                    android:gravity="center"
-                    android:layout_marginTop="7dp">
+                    android:layout_marginTop="7dp"
+                    android:gravity="center">
+
                     <ImageButton
                         android:id="@+id/ib_avt4"
                         android:layout_width="70dp"
@@ -78,67 +91,72 @@
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt4"/>
+                        android:src="@drawable/avt4" />
+
                     <ImageButton
                         android:id="@+id/ib_avt5"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt5"/>
+                        android:src="@drawable/avt5" />
+
                     <ImageButton
                         android:id="@+id/ib_avt6"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt6"/>
+                        android:src="@drawable/avt6" />
+
                     <ImageButton
                         android:id="@+id/ib_avt7"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginLeft="7dp"
                         android:background="@drawable/round_buttonunpick"
                         android:padding="4dp"
-                        android:layout_marginLeft="7dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/avt7"/>
+                        android:src="@drawable/avt7" />
                 </TableRow>
             </TableLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
                 android:layout_marginTop="20dp"
+                android:orientation="horizontal"
                 android:paddingBottom="20dp">
+
                 <Button
+                    android:id="@id/bt_change"
                     android:layout_width="140dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/layoutbutton1"
                     android:text="Change"
                     android:textAllCaps="false"
-                    android:textSize="20sp"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/layoutbutton1"
-                    android:id="@id/bt_change"/>
+                    android:textSize="20sp" />
+
                 <Button
                     android:id="@id/bt_cancel"
-                    android:layout_marginLeft="20dp"
                     android:layout_width="140dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/layoutbutton2"
                     android:text="Cancel"
                     android:textAllCaps="false"
-                    android:textSize="20sp"
                     android:textColor="#433D3F"
-                    android:background="@drawable/layoutbutton2"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
         </LinearLayout>
-
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

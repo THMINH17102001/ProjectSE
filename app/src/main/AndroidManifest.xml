@@ -23,6 +23,7 @@
             android:exported="true" />
         <activity
             android:name=".ChangeAvatar"
+            android:theme="@style/AppTheme.CustomTheme"
             android:exported="true" />
         <activity
             android:name=".ChangeDisplayName"

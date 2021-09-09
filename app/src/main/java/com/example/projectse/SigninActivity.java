@@ -4,12 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +14,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -69,16 +62,6 @@ public class SigninActivity extends AppCompatActivity {
         sUsername = findViewById(R.id.username_SigninActivity);
         sPassword = findViewById(R.id.password_SigninActivity);
 
-        //Check if player already exists
-        //SharedPreferences preferences = getSharedPreferences("PREPS", 0);
-        //playerName = preferences.getString("playerName", "");
-        //if(!playerName.equals(""))
-        //{
-        //    playerRef = signInDB.getReference("player/" + playerName);
-        //    addEventListener();
-        //    playerRef.setValue("");
-        //}
-
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -116,6 +99,10 @@ public class SigninActivity extends AppCompatActivity {
                                     playerRef = signInDB.getReference("player/" + playerName);
                                     addEventListener();
                                     playerRef.setValue("");
+                                    Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
+                                    intent.putExtra("signedInPlayerUsername", playerName);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             }
 
@@ -148,9 +135,6 @@ public class SigninActivity extends AppCompatActivity {
                     editor.putString("playerName", playerName);
                     editor.apply();
 
-                    Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             }
 
