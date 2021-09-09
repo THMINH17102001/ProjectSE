@@ -62,7 +62,6 @@ public class WaitingRoom2 extends AppCompatActivity {
         message=role+":Ready";
         messageRef.setValue(message);
         addRoomEventListener();
-
     }
     private void addRoomEventListener(){
         messageRef.addValueEventListener(new ValueEventListener() {
