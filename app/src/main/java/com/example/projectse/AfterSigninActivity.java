@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -36,6 +37,7 @@ public class AfterSigninActivity extends AppCompatActivity {
     ImageButton avatarBtn, displayNameBtn;
     String signedInPLayerUsername = "",signedUpPLayerUsername = "", path = "", avtShow;
     ImageView userAvt;
+    TextView userDisplayName;
     SharedPreferences sharedPreferences;
     FirebaseFirestore usersDB;
     DocumentReference ref;
@@ -56,6 +58,8 @@ public class AfterSigninActivity extends AppCompatActivity {
         avatarBtn = findViewById(R.id.avatarBtn_AfterSigninActivity);
         displayNameBtn = findViewById(R.id.displayNameBtn_AfterSigninActivity);
         userAvt = findViewById(R.id.avatar_AfterSigninActivity);
+        userDisplayName = findViewById(R.id.displayName_AfterSigninActivity);
+
         path= sharedPreferences.getString("uname", "");
         usersDB = FirebaseFirestore.getInstance();
         ref = usersDB.collection("users").document(path);
@@ -107,7 +111,13 @@ public class AfterSigninActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AfterSigninActivity.this, ChangeAvatar.class);
                 startActivityForResult(intent, 1);
-
+            }
+        });
+        displayNameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AfterSigninActivity.this, ChangeDisplayName.class);
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -142,7 +152,36 @@ public class AfterSigninActivity extends AppCompatActivity {
 
             }
         }
+        if(requestCode == 2)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                String value = data.getStringExtra("displayName");
+                String display = "";
+                if(!TextUtils.isEmpty(value))
+                {
+                    display = "Hello, " + value;
+                    userDisplayName.setText(display);
+                }
+                ref = usersDB.collection("users").document(path);
+                ref
+                        .update("displayName", value)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Display name is updated!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating Display name", e);
+                            }
+                        });
 
+            }
+
+        }
     }
 
 }

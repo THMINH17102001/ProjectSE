@@ -28,7 +28,7 @@
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:hint="@string/app_name"
+                android:hint="Name"
                 android:background="@drawable/edittext1"
                 android:textColor="#4D4749"
                 android:id="@+id/et_dname"
