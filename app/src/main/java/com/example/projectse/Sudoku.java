@@ -66,7 +66,7 @@ public class Sudoku {
             }
         }
     }
-    
+
     Sudoku(String room, String dif, String user1){
         if(dif.equals("Easy")) this.difVal= 55;
         else if(dif.equals("Medium")) this.difVal= 65;

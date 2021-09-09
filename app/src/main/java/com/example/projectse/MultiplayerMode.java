@@ -249,7 +249,7 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         else comprole= "s2";
         selfState=3;
         compState=3;
-        if(role == "s1") {Sudoku s = new Sudoku(room, "Test", sharedPreferences.getString("uname", ""));}
+        //if(role == "s1") {Sudoku s = new Sudoku(room, "Test", sharedPreferences.getString("uname", ""));}
     }
 
     private int getDiff(String dif) {
