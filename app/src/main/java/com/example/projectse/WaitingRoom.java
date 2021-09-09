@@ -110,7 +110,8 @@ public class WaitingRoom extends AppCompatActivity {
                     //join the room
                     button.setText("CREATE ROOM");
                     button.setEnabled(true);
-                    Intent intent = new Intent(getApplicationContext(), WaitingRoomTest1.class); //fix this to Waiting room 2
+                    Intent intent = new Intent(getApplicationContext(), WaitingRoomTest1.class); //fix this to Waitingtest2
+                    
                     intent.putExtra("roomName", roomName);
                     startActivity(intent);
                     run=false;
@@ -148,7 +149,7 @@ public class WaitingRoom extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //error - nothing
+
 
             }
         });
