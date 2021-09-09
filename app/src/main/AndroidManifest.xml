@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectSE">
         <activity
+            android:name=".SignedIn"
+            android:exported="true" />
+        <activity
+            android:name=".WaitingRoomTest1"
+            android:exported="true" />
+        <activity
             android:name=".LoseGame"
             android:exported="true" />
         <activity
@@ -27,7 +33,6 @@
         <activity
             android:name=".ChangeDisplayName"
             android:exported="true" />
-
         <activity
             android:name=".MultiplayerMode"
             android:exported="true" />
@@ -55,7 +60,6 @@
         <activity
             android:name=".SigninActivity"
             android:exported="true" />
-        
         <activity
             android:name=".WaitingRoom2"
             android:exported="true" />

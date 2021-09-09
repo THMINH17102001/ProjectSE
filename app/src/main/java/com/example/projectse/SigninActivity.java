@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class SigninActivity extends AppCompatActivity {
     FirebaseFirestore usersDB;
     FirebaseDatabase signInDB;
     DatabaseReference playerRef;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String playerName = "";
 
     @Override
@@ -49,8 +52,8 @@ public class SigninActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signin);
-
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor=sharedPreferences.edit();
         signInBtn = findViewById(R.id.signin_SigninActivity);
         signUpSwitchScr = findViewById(R.id.signup_SigninActivity);
         returnToUnsignedBtn = findViewById(R.id.returnToUnsigned);
@@ -68,17 +71,6 @@ public class SigninActivity extends AppCompatActivity {
         signInDB= FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         sUsername = findViewById(R.id.username_SigninActivity);
         sPassword = findViewById(R.id.password_SigninActivity);
-
-        //Check if player already exists
-        //SharedPreferences preferences = getSharedPreferences("PREPS", 0);
-        //playerName = preferences.getString("playerName", "");
-        //if(!playerName.equals(""))
-        //{
-        //    playerRef = signInDB.getReference("player/" + playerName);
-        //    addEventListener();
-        //    playerRef.setValue("");
-        //}
-
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -102,6 +94,10 @@ public class SigninActivity extends AppCompatActivity {
                                 if( x == true && y == true)
                                 {
                                     flag = 1;
+                                    editor.putBoolean("Signed", true);
+                                    editor.putString("uname", username);
+                                    editor.putString("pword", password);
+                                    editor.commit();
                                     break;
                                 }
                             }
@@ -118,7 +114,6 @@ public class SigninActivity extends AppCompatActivity {
                                     playerRef.setValue("");
                                 }
                             }
-
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
@@ -148,7 +143,7 @@ public class SigninActivity extends AppCompatActivity {
                     editor.putString("playerName", playerName);
                     editor.apply();
 
-                    Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
+                    Intent intent = new Intent(SigninActivity.this, SignedIn.class);
                     startActivity(intent);
                     finish();
                 }
