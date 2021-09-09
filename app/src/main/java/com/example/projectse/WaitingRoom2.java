@@ -78,7 +78,8 @@ public class WaitingRoom2 extends AppCompatActivity {
                 else{
                     if(snapshot.getValue(String.class).contains("host:")){
                         button.setEnabled(true);
-                        Toast.makeText(WaitingRoom2.this,""+snapshot.getValue(String.class).replace("host:",""),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WaitingRoom2.this,""+
+                                snapshot.getValue(String.class).replace("host:",""),Toast.LENGTH_SHORT).show();
                     }
 
                 }
