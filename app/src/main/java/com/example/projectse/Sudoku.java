@@ -66,6 +66,42 @@ public class Sudoku {
             }
         }
     }
+    
+    Sudoku(String room, String dif, String user1){
+        if(dif.equals("Easy")) this.difVal= 55;
+        else if(dif.equals("Medium")) this.difVal= 65;
+        else if(dif.equals("Hard")) this.difVal= 75;
+        else this.difVal = 5;
+        shwBoard = new int[9][9];
+        solBoard = new int[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                shwBoard[i][j] = 0;
+            }
+        }
+        create3Box();
+        fillAll(0, 3);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                solBoard[i][j] = shwBoard[i][j];
+            }
+        }
+        removeCell();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("room");
+        myRef.child(room).child("s1").child("point").setValue(0);
+        myRef.child(room).child("s2").child("point").setValue(0);
+        myRef.child(room).child("s1").child("state").setValue(0);
+        myRef.child(room).child("s2").child("state").setValue(0);
+        for(int i=0;i<9;i++){
+            for(int j=0; j<9; j++){
+                myRef.child(room).child("data").child(Integer.toString(i)+Integer.toString(j)).setValue(solBoard[i][j]);
+                myRef.child(room).child("show").child(Integer.toString(i)+Integer.toString(j)).setValue(shwBoard[i][j]);
+            }
+        }
+        myRef.child(room).child("s1").child("uname").setValue(user1);
+        myRef.child(room).child("s1").child("uname").setValue("&^$%$");
+    }
 
     private void removeCell() {
         int i, j;
