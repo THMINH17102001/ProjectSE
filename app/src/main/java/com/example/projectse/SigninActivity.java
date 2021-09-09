@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 
@@ -26,7 +27,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 public class SigninActivity extends AppCompatActivity {
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     Button signUpSwitchScr, signInBtn, returnToUnsignedBtn;
     TextInputLayout sUsername, sPassword;
     private static final String TAG = "SigninActivity";
@@ -43,7 +45,8 @@ public class SigninActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signin);
 
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor=sharedPreferences.edit();
         signInBtn = findViewById(R.id.signin_SigninActivity);
         signUpSwitchScr = findViewById(R.id.signup_SigninActivity);
         returnToUnsignedBtn = findViewById(R.id.returnToUnsigned);
@@ -84,6 +87,10 @@ public class SigninActivity extends AppCompatActivity {
                                 boolean y = password.equals(checkPassword);
                                 if( x == true && y == true)
                                 {
+                                    editor.putString("uname", username);
+                                    editor.putString("pword", password);
+                                    editor.putBoolean("Signed", true);
+                                    editor.commit();
                                     flag = 1;
                                     break;
                                 }

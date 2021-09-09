@@ -3,7 +3,9 @@ package com.example.projectse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,6 +33,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 public class SignupActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     Button signInSwitchScr, signUpBtn, returnToSigninScrBtn;
     TextInputLayout nUsername, nPassword, nPasswordcf;
     FirebaseFirestore usersDB = FirebaseFirestore.getInstance();
@@ -41,7 +45,8 @@ public class SignupActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signup);
-
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+        editor=sharedPreferences.edit();
         nUsername = findViewById(R.id.newUsernameLayout);
         nPassword = findViewById(R.id.newPasswordLayout);
         nPasswordcf = findViewById(R.id.newPasswordConfirmLayout);
@@ -131,6 +136,10 @@ public class SignupActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(SignupActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
+                                        editor.putString("uname", username);
+                                        editor.putString("pword", password);
+                                        editor.putBoolean("Signed", true);
+                                        editor.commit();
                                         Intent intent = new Intent(SignupActivity.this, AfterSigninActivity.class);
                                         intent.putExtra("signedUpPlayerUsername", username);
                                         startActivity(intent);

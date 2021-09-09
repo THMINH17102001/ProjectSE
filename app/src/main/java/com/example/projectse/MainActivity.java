@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             String checkUsername = document.getString("username");
                             String checkPassword = document.getString("password");
                             if (uname.equals(checkUsername) && pword.equals(checkPassword)) {
-                                Intent SignedIn = new Intent(MainActivity.this, SignedIn.class);
+                                Intent SignedIn = new Intent(MainActivity.this, AfterSigninActivity.class);
                                 editor.putBoolean("Signed", true);
                                 startActivity(SignedIn);
                                 finish();

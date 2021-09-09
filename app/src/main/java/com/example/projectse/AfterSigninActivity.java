@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.ComponentActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +36,7 @@ public class AfterSigninActivity extends AppCompatActivity {
     ImageButton avatarBtn, displayNameBtn;
     String signedInPLayerUsername = "",signedUpPLayerUsername = "", path = "", avtShow;
     ImageView userAvt;
-
+    SharedPreferences sharedPreferences;
     FirebaseFirestore usersDB;
     DocumentReference ref;
     private static final String TAG = "AfterSigninActivity";
@@ -45,6 +47,7 @@ public class AfterSigninActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_after_signin);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         singleModeSwitchScr = findViewById(R.id.singlemode_AfterSigninActivity);
         multiModeSwitchScr = findViewById(R.id.multimode_AfterSigninActivity);
@@ -53,14 +56,7 @@ public class AfterSigninActivity extends AppCompatActivity {
         avatarBtn = findViewById(R.id.avatarBtn_AfterSigninActivity);
         displayNameBtn = findViewById(R.id.displayNameBtn_AfterSigninActivity);
         userAvt = findViewById(R.id.avatar_AfterSigninActivity);
-        signedInPLayerUsername = getIntent().getStringExtra("signedInPlayerUsername");
-        signedUpPLayerUsername = getIntent().getStringExtra("signedUpPlayerUsername");
-
-        path = signedInPLayerUsername;
-        if(TextUtils.isEmpty(path))
-        {
-            path = signedUpPLayerUsername;
-        }
+        path= sharedPreferences.getString("uname", "");
         usersDB = FirebaseFirestore.getInstance();
         ref = usersDB.collection("users").document(path);
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -87,7 +83,7 @@ public class AfterSigninActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AfterSigninActivity.this, SingleMode.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
