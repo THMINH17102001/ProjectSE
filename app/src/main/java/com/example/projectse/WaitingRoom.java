@@ -63,20 +63,32 @@ public class WaitingRoom extends AppCompatActivity {
             public void onClick(View view) {
                 button.setText("CREATING ROOM");
                 button.setEnabled(false);
+
                 roomName = playerName;
-                roomRef = database.getReference("rooms/" + roomName + "/player1");
-                addRoomEventListener();
+                roomRef = database.getReference("room/" + roomName + "/s1/uname");
+
                 roomRef.setValue(playerName);
+                Sudoku sdk = new Sudoku(playerName, "Easy");
+
+
+                addRoomEventListener();
+
+
+
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //join existing room and add yourself as player2
-                roomName=roomsList.get(position);
-                roomRef=database.getReference("rooms/"+roomName+"/player2");
-                addRoomEventListener();
-                roomRef.setValue(playerName);
+                if(playerName.equals(roomName)) {
+                    roomName = roomsList.get(position);
+
+                    roomRef = database.getReference("room/" + roomName + "/s2/uname");
+
+                    addRoomEventListener();
+                    roomRef.setValue(playerName);
+                }
             }
         });
         //show if new room is available
@@ -109,7 +121,7 @@ public class WaitingRoom extends AppCompatActivity {
 
     private void addRoomsEventListener(){
         //roomRef=database.getReference("rooms");
-        roomsRef=database.getReference("rooms");
+        roomsRef=database.getReference("room");
         roomsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
