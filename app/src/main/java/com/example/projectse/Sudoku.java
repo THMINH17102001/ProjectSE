@@ -115,7 +115,7 @@ public class Sudoku {
         }
         return true;
     }
-
+    //Check the Col of the bord
     public boolean checkCol(int num, int y) {
         for (int i = 0; i < 9; i++) {
             if (shwBoard[i][y] == num) return false;
