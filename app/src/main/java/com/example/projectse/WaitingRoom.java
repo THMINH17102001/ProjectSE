@@ -132,7 +132,7 @@ public class WaitingRoom extends AppCompatActivity {
     private void addRoomsEventListener(){
         //roomRef=database.getReference("rooms");
         roomsRef=database.getReference("room");
-        roomsRef.addValueEventListener(new ValueEventListener() {
+        roomsRef.orderByChild("s2/uname").equalTo("&^$%$").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(run==true) {
