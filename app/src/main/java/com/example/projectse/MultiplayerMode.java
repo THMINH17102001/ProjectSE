@@ -226,7 +226,9 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
         mDatabase = FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-        dif=sharedPreferences.getString("dif", "Easy");
+        dif=sharedPreferences.getString("roomdif", "Easy");
+        role=sharedPreferences.getString("slot", "s1");
+        room=sharedPreferences.getString("roomdif", "00004");
         FirebaseDatabase.getInstance("https://sudoku-80cb0-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef;
         dataBoard = new int[9][9];
@@ -243,8 +245,6 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
         nRemove = getDiff(dif);
         rand = new Random();
         timeCounting=1*60*1000;
-        room="00004";
-        role="s2";
         if(role.equals("s2")) comprole="s1";
         else comprole= "s2";
         selfState=3;
