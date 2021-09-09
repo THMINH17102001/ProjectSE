@@ -212,7 +212,7 @@ public class SingleMode extends Activity implements View.OnClickListener {
         showBoard = new int[9][9];
         noteBoard = new int[9][9];
         fault = 0;
-        hint = 3;
+        hint = 5;
         noteOn = 0;
         selX = 0;
         selY = 0;
