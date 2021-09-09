@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class PauseGame extends Activity implements View.OnClickListener {
 Button bt;
@@ -22,6 +23,9 @@ ImageButton im;
 
     @Override
     public void onClick(View view) {
-        finish();
+        if(view == bt || view == im) {
+            Toast.makeText(PauseGame.this, "Continue game", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

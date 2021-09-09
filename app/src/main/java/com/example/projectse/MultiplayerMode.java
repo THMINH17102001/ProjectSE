@@ -2828,21 +2828,6 @@ public class MultiplayerMode extends Activity implements View.OnClickListener {
                     DatabaseReference myRef = database.getReference("room");
                     myRef.child(room).child("time").setValue(min);
                 }
-//                if(role.equals("s1")){
-//                    if(timeCounting%10000==0){
-//                        myRef.child(room).child(role).child("state").setValue(selfState+1);
-//                        if(compState<0){
-//
-//                        }
-//                        myRef.child(room).child(comprole).child("state").setValue(compState-1);
-//
-//                    }
-//                }
-//                if(role.equals("s2")){
-//                    if(timeCounting%10000==5000){
-//
-//                    }
-//                }
             }
             @Override
             public void onFinish() {
