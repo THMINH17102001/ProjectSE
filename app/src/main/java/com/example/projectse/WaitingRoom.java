@@ -92,6 +92,7 @@ public class WaitingRoom extends AppCompatActivity {
                 button.setEnabled(true);
                 Intent intent=new Intent(getApplicationContext(),WaitingRoom2.class); //fix this to Waiting room 2
                 intent.putExtra("roomName",roomName);
+                startActivity(intent);
 
             }
 
