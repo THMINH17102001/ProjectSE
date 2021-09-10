@@ -98,7 +98,7 @@ public class WaitingRoom extends AppCompatActivity {
                 }
             }
         });
-        //show if new room is available
+        //show if new room is available (show as touchable list on screen)
         addRoomsEventListener();
 
     }
