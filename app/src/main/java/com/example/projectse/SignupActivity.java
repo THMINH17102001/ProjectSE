@@ -109,7 +109,7 @@ public class SignupActivity extends AppCompatActivity {
                 user.put("username", username);
                 user.put("password", password);
                 user.put("avt", "0");
-                user.put("displayName", "");
+                user.put("displayName", username);
 
                 usersDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
                 {
