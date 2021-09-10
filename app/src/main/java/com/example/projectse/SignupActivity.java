@@ -140,7 +140,7 @@ public class SignupActivity extends AppCompatActivity {
                                         editor.putString("pword", password);
                                         editor.putBoolean("Signed", true);
                                         editor.commit();
-                                        Intent intent = new Intent(SignupActivity.this, AfterSigninActivity.class);
+                                        Intent intent = new Intent(SignupActivity.this, SignedIn.class);
                                         intent.putExtra("signedUpPlayerUsername", username);
                                         startActivity(intent);
                                         finish();

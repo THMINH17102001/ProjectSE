@@ -106,7 +106,7 @@ public class SigninActivity extends AppCompatActivity {
                                     playerRef = signInDB.getReference("player/" + playerName);
                                     addEventListener();
                                     playerRef.setValue("");
-                                    Intent intent = new Intent(SigninActivity.this, AfterSigninActivity.class);
+                                    Intent intent = new Intent(SigninActivity.this, SignedIn.class);
                                     intent.putExtra("signedInPlayerUsername", playerName);
                                     startActivity(intent);
                                     finish();
